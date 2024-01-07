@@ -70,19 +70,33 @@ test_db_storage.py'])
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+
+    def tearDown(self):
+        """Remove storage file at end of tests"""
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
+
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
         self.assertIs(type(models.storage.all()), dict)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_no_class(self):
         """Test that all returns all rows when no class is passed"""
+        result = models.storage.all()
+        self.assertIsInstance(result, dict)
+        self.assertGreater(len(result), 0)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_new(self):
         """test that new adds an object to the database"""
+        user = User(name='Sam')
+        models.storage.new(user)
+        model_s = models.storage.all()[f"{user.__class__.__name__}.{user.id}"]
+        self.assertEqual(user, model_s)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+        new = BaseModel()
+        new.save()
+        self.assertTrue(os.path.exists("file.json"))
