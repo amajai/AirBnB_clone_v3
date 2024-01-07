@@ -34,7 +34,6 @@ def states_delete(state_id):
 @app_views.route("/states", methods=["POST"])
 def create_state():
     """create model object"""
-    print('create')
     obj = request.get_json(force=True, silent=True)
     if not obj:
         abort(400, "Not a JSON")
