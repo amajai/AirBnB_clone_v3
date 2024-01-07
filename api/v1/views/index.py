@@ -13,6 +13,7 @@ from models.user import User
 
 @app_views.route("/status", strict_slashes=False, methods=["GET"])
 def status():
+    """Get status"""
     return jsonify({
         "status": "OK"
     })
@@ -20,6 +21,7 @@ def status():
 
 @app_views.route("/stats", strict_slashes=False, methods=["GET"])
 def stats():
+    """get count for all models"""
     amenities = storage.count(Amenity)
     cities = storage.count(City)
     places = storage.count(Place)
