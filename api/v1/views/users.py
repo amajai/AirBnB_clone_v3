@@ -10,7 +10,7 @@ from models.user import User
 @app_views.route("/users", methods=["GET"])
 @app_views.route("/users/<user_id>", methods=["GET"])
 def user(user_id=None):
-    """get a user object or list of user""" 
+    """get a user object or list of user"""
     if user_id:
         res = storage.get(User, user_id)
         if res is None:
@@ -18,6 +18,7 @@ def user(user_id=None):
         return jsonify(res.to_dict())
     else:
         return jsonify([m.to_dict() for m in storage.all(User).values()])
+
 
 @app_views.route("/users/<user_id>", methods=["DELETE"])
 def user_delete(user_id):
