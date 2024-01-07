@@ -113,3 +113,41 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """Ensure the get value is object"""
+        models.storage._FileStorage__objects = {}
+        state1 = State(name="state1")
+        state2 = State(name="state2")
+        models.storage.new(state1)
+        models.storage.new(state2)
+        models.storage.save()
+        first_state = list(models.storage.all().values())[0]
+        first_state_id = first_state.id
+        get = models.storage.get(State, first_state_id)
+        self.assertEqual(get.id, first_state_id)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_none(self):
+        """Ensure the get value is none"""
+        get = models.storage.get(State, 'an_id')
+        self.assertEqual(get, None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """Count the objects"""
+        states = [State(name=f"state{i}") for i in range(1, 4)]
+        cities = [City(s.id, f"SF{i}") for i, s in enumerate(states, 1)]
+
+        for obj in states + cities:
+            models.storage.new(obj)
+
+        models.storage.save()
+        total_objects = len(models.storage.all())
+        total_states = len(models.storage.all(State))
+        count_objects = models.storage.count()
+        count_states = models.storage.count(State)
+
+        self.assertEqual(total_objects, count_objects)
+        self.assertEqual(total_states, count_states)
