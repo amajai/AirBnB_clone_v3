@@ -15,6 +15,9 @@ app.register_blueprint(app_views)
 def close(_):
     storage.close()
 
+@app.errorhandler(404)
+def page_not_found(_):
+    return {"error": "Not found"}, 404
 
 if os.getenv("HBNB_API_HOST"):
     host = os.getenv("HBNB_API_HOST")
