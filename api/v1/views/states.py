@@ -6,17 +6,19 @@ from models import storage
 from models.state import State
 from flask import abort, request, jsonify
 
+
 @app_views.route("/states", methods=["GET"])
 @app_views.route("/states/<state_id>", methods=["GET"])
 def states(state_id=None):
     """get a model object or list of objects"""
     if state_id:
         res = storage.get(State, state_id)
-        if res == None:
+        if res is None:
             abort(404)
         return jsonify(res.to_dict())
     else:
         return jsonify([m.to_dict() for m in storage.all(State).values()])
+
 
 @app_views.route("/states/<state_id>", methods=["DELETE"])
 def states_delete(state_id):
@@ -27,6 +29,7 @@ def states_delete(state_id):
     storage.delete(res)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.route("/states", methods=["POST"])
 def create_state():
@@ -40,6 +43,7 @@ def create_state():
     new_state = State(**obj)
     new_state.save()
     return jsonify(new_state.to_dict()), 201
+
 
 @app_views.route("/states/<state_id>", methods=["PUT"])
 def update_state(state_id):
