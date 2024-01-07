@@ -71,13 +71,6 @@ test_db_storage.py'])
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
 
-    def tearDown(self):
-        """Remove storage file at end of tests"""
-        try:
-            os.remove("file.json")
-        except Exception:
-            pass
-
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
         self.assertIs(type(models.storage.all()), dict)
