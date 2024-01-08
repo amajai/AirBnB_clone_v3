@@ -15,7 +15,7 @@ from models.user import User
 def status():
     """json status"""
     return jsonify({
-        'status':'OK'
+        'status': 'OK'
     })
 
 
