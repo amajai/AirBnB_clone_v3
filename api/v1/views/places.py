@@ -72,7 +72,8 @@ def update_place(place_id):
     place.name = data.get("name", place.name)
     place.description = data.get("description", place.description)
     place.number_rooms = data.get("number_rooms", place.number_rooms)
-    place.number_bathrooms = data.get("number_bathrooms", place.number_bathrooms)
+    place.number_bathrooms = data.get("number_bathrooms",
+                                      place.number_bathrooms)
     place.max_guest = data.get("max_guest", place.max_guest)
     place.price_by_night = data.get("price_by_night", place.price_by_night)
     place.latitude = data.get("latitude", place.latitude)
