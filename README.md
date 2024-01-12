@@ -154,6 +154,7 @@ EOF  all  create  destroy  help  quit  show  update
 No known bugs at this time. 
 
 ## Authors
+Christian Aziba - [Github](https://github.com/zibxto) / [LinkedIn](https://www.linkedin.com/in/christianaziba)
 Abdulmajed Isa - [Github](https://github.com/amajai) / [LinkedIn](https://www.linkedin.com/in/abdulmajeedai)
 Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
